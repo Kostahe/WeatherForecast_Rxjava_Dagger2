@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    kotlin("kapt")
 }
 
 android {
@@ -11,7 +11,8 @@ android {
     defaultConfig {
         applicationId = "com.example.weatherforecast_rxjava_mvvm_dagger2"
         minSdk = 24
-        targetSdk = 33
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -75,9 +76,9 @@ dependencies {
     implementation("com.google.dagger:dagger-android:$daggerVersion")
     implementation("com.google.dagger:dagger-android-support:$daggerVersion")
 
-    ksp("com.google.dagger:dagger-android-processor:$daggerVersion")
-    ksp("com.google.dagger:dagger-compiler:$daggerVersion")
+    kapt("com.google.dagger:dagger-android-processor:$daggerVersion")
+    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
 
-
-
+    // Location Services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

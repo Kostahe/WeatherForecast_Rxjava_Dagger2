@@ -1,8 +1,11 @@
 package com.example.weatherforecast_rxjava_mvvm_dagger2.di
 
+import android.app.Application
 import com.example.weatherforecast_rxjava_mvvm_dagger2.data.api.ApiConstants
 import com.example.weatherforecast_rxjava_mvvm_dagger2.data.api.WeatherApi
 import com.example.weatherforecast_rxjava_mvvm_dagger2.data.api.interceptors.LoggingInterceptor
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -48,5 +51,11 @@ object AppModule {
         val httpLoggingInterceptor = HttpLoggingInterceptor(loggingInterceptor)
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return httpLoggingInterceptor
+    }
+
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(app)
     }
 }
