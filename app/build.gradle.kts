@@ -81,4 +81,7 @@ dependencies {
 
     // Location Services
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Coroutines - used for state flow
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
 }
