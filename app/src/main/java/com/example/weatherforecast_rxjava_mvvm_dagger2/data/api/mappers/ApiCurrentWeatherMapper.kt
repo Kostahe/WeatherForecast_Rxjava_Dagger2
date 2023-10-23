@@ -5,19 +5,17 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.CurrentWeat
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.WeatherStatus
 import com.example.weatherforecast_rxjava_mvvm_dagger2.utils.FormatUtils
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ApiCurrentWeatherMapper: ApiMapper<Single<CurrentWeather>, Single<ApiCurrentWeather>> {
-    override fun mapToDoMain(apiEntity: Single<ApiCurrentWeather>): Single<CurrentWeather> {
-        return apiEntity.flatMap { apiEntity ->
-            val currentWeather = CurrentWeather(
-                temperature = apiEntity.temperature,
-                time = formatTime(apiEntity.time),
-                day = formatDay(apiEntity.time),
-                weatherStatus = formatWeatherStatus(apiEntity.weatherCode),
-                windSpeed = apiEntity.windSpeed
-            )
-            Single.just(currentWeather)
-        }
+class ApiCurrentWeatherMapper @Inject constructor(): ApiMapper<CurrentWeather, ApiCurrentWeather>{
+    override fun mapToDoMain(apiEntity: ApiCurrentWeather): CurrentWeather {
+        return CurrentWeather(
+            temperature = apiEntity.temperature,
+            time = formatTime(apiEntity.time),
+            day = formatDay(apiEntity.time),
+            weatherStatus = formatWeatherStatus(apiEntity.weatherCode),
+            windSpeed = apiEntity.windSpeed
+        )
     }
     private fun formatTime(time: Long): String {
         return FormatUtils.formatTime("H", time)

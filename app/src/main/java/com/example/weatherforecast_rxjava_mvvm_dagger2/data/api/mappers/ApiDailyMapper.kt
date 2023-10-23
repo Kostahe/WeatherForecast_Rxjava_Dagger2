@@ -5,19 +5,16 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Daily
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.WeatherStatus
 import com.example.weatherforecast_rxjava_mvvm_dagger2.utils.FormatUtils
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ApiDailyMapper : ApiMapper<Single<Daily>, Single<ApiDaily>> {
-    override fun mapToDoMain(apiEntity: Single<ApiDaily>): Single<Daily> {
-        return apiEntity.flatMap { apiEntity ->
-            val daily = Daily(
-                temperatureMax = apiEntity.temperatureMax,
-                temperatureMin = apiEntity.temperatureMin,
-                time = formatTime(apiEntity.time),
-                weatherStatus = formatWeatherStatus(apiEntity.weatherCode)
-            )
-
-            Single.just(daily)
-        }
+class ApiDailyMapper @Inject constructor(): ApiMapper<Daily, ApiDaily> {
+    override fun mapToDoMain(apiEntity: ApiDaily): Daily {
+        return Daily(
+            temperatureMax = apiEntity.temperatureMax,
+            temperatureMin = apiEntity.temperatureMin,
+            time = formatTime(apiEntity.time),
+            weatherStatus = formatWeatherStatus(apiEntity.weatherCode)
+        )
     }
 
     private fun formatTime(time: List<Long>): List<String> {
@@ -31,4 +28,5 @@ class ApiDailyMapper : ApiMapper<Single<Daily>, Single<ApiDaily>> {
             FormatUtils.getWeatherStatus(it)
         }
     }
+
 }

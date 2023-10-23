@@ -5,19 +5,17 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Hourly
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.WeatherStatus
 import com.example.weatherforecast_rxjava_mvvm_dagger2.utils.FormatUtils
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ApiHourlyMapper: ApiMapper<Single<Hourly>, Single<ApiHourly>> {
-    override fun mapToDoMain(apiEntity: Single<ApiHourly>): Single<Hourly> {
-        return apiEntity.flatMap { apiEntity ->
-            val hourly = Hourly(
-                temperature = apiEntity.temperature,
-                time = formatTime(apiEntity.time),
-                day = formatDay(apiEntity.time),
-                weatherStatus = formatWeatherStatus(apiEntity.weatherCode),
-                windSpeed = apiEntity.windSpeed
-            )
-            Single.just(hourly)
-        }
+class ApiHourlyMapper @Inject constructor(): ApiMapper<Hourly, ApiHourly> {
+    override fun mapToDoMain(apiEntity: ApiHourly): Hourly {
+        return Hourly(
+            temperature = apiEntity.temperature,
+            time = formatTime(apiEntity.time),
+            day = formatDay(apiEntity.time),
+            weatherStatus = formatWeatherStatus(apiEntity.weatherCode),
+            windSpeed = apiEntity.windSpeed
+        )
     }
 
     private fun formatTime(time: List<Long>): List<String> {
