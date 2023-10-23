@@ -6,6 +6,8 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Weather
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.WeatherRepository
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
@@ -16,10 +18,21 @@ class WeatherRepositoryImpl @Inject constructor(
         latitude: Double,
         longitude: Double
     ): Single<State<Weather>> {
-        return weatherApi.getWeatherData(latitude, longitude).flatMap { apiWeather ->
-            val weather = apiWeatherMapper.mapToDoMain(apiWeather)
+        return try {
+            weatherApi.getWeatherData(latitude, longitude).flatMap {apiWeather ->
+                val weather = apiWeatherMapper.mapToDoMain(apiWeather)
 
-            Single.just(State.Success(weather))
+                Single.just(State.Success(weather)).observeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+            }
+        }
+        catch (e: Exception){
+            e.printStackTrace()
+            Single.just<State<Weather>?>(State.Error(e.message.orEmpty()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
         }
     }
+
 }

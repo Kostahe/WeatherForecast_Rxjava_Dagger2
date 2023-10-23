@@ -4,5 +4,5 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Weather
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
 
 data class WeatherState(
-    val weather: State<Weather> = State.Loading()
+    var weather: State<Weather> = State.Loading()
 )

@@ -53,7 +53,10 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    val viewModelVersion = "2.6.2"
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$viewModelVersion")
 
     // Internet
     val okHttpVersion = "4.11.0"
