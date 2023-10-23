@@ -39,7 +39,7 @@ class WeatherViewModel @Inject constructor(
         }, {
 
         }, {
-            Log.d("a", "")
+            
         }, { disposable ->
             compositeDisposable.add(disposable)
         })
