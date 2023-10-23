@@ -1,5 +1,6 @@
 package com.example.weatherforecast_rxjava_mvvm_dagger2.ui
 
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.WeatherRepository
@@ -19,6 +20,15 @@ class WeatherViewModel @Inject constructor(
     }
 
     init {
-        locationTracker.let {  }
+        locationTracker.getCurrentLocation().subscribe({
+
+        }, {
+
+        }, {
+
+        }, { disposable ->
+            compositeDisposable.add(disposable)
+        })
+
     }
 }
