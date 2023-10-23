@@ -3,17 +3,17 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Hourly(
+data class ApiHourlyUnits(
     @SerializedName("precipitation_probability")
-    val precipitationProbability: List<Int>,
+    val precipitationProbability: String,
     @SerializedName("relativehumidity_2m")
-    val relativeHumidity: List<Int>,
+    val relativehumidity2m: String,
     @SerializedName("temperature_2m")
-    val temperature2m: List<Double>,
+    val temperature2m: String,
     @SerializedName("time")
-    val time: List<Long>,
+    val time: String,
     @SerializedName("weathercode")
-    val weatherCode: List<Int>,
+    val weathercode: String,
     @SerializedName("windspeed_10m")
-    val windSpeed: List<Double>
+    val windspeed10m: String
 )

@@ -3,19 +3,19 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class CurrentWeather(
+data class ApiCurrentWeatherUnits(
     @SerializedName("interval")
-    val interval: Int,
+    val interval: String,
     @SerializedName("is_day")
-    val isDay: Int,
+    val isDay: String,
     @SerializedName("temperature")
-    val temperature: Double,
+    val temperature: String,
     @SerializedName("time")
-    val time: Long,
+    val time: String,
     @SerializedName("weathercode")
-    val weatherCode: Int,
+    val weathercode: String,
     @SerializedName("winddirection")
-    val windDirection: Double,
+    val winddirection: String,
     @SerializedName("windspeed")
-    val windSpeed: Double
+    val windspeed: String
 )

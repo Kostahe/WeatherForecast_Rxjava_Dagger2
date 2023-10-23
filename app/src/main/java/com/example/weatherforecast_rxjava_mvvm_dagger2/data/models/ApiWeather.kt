@@ -3,23 +3,23 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Weather(
+data class ApiWeather(
     @SerializedName("current_weather")
-    val currentWeather: CurrentWeather,
+    val apiCurrentWeather: ApiCurrentWeather,
     @SerializedName("current_weather_units")
-    val currentWeatherUnits: CurrentWeatherUnits,
+    val apiCurrentWeatherUnits: ApiCurrentWeatherUnits,
     @SerializedName("daily")
-    val daily: Daily,
+    val apiDaily: ApiDaily,
     @SerializedName("daily_units")
-    val dailyUnits: DailyUnits,
+    val apiDailyUnits: ApiDailyUnits,
     @SerializedName("elevation")
     val elevation: Double,
     @SerializedName("generationtime_ms")
     val generationtimeMs: Double,
     @SerializedName("hourly")
-    val hourly: Hourly,
+    val apiHourly: ApiHourly,
     @SerializedName("hourly_units")
-    val hourlyUnits: HourlyUnits,
+    val apiHourlyUnits: ApiHourlyUnits,
     @SerializedName("latitude")
     val latitude: Double,
     @SerializedName("longitude")

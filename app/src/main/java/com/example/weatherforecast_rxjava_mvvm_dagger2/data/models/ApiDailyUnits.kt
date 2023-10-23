@@ -3,13 +3,13 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Daily(
+data class ApiDailyUnits(
     @SerializedName("temperature_2m_max")
-    val temperature2mMax: List<Double>,
+    val temperature2mMax: String,
     @SerializedName("temperature_2m_min")
-    val temperature2mMin: List<Double>,
+    val temperature2mMin: String,
     @SerializedName("time")
-    val time: List<Long>,
+    val time: String,
     @SerializedName("weathercode")
-    val weatherCode: List<Int>
+    val weathercode: String
 )
