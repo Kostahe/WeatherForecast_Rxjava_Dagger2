@@ -2,13 +2,11 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.ui
 
 import android.location.Location
 import androidx.lifecycle.ViewModel
-import com.example.weatherforecast_rxjava_mvvm_dagger2.appComponent
 import com.example.weatherforecast_rxjava_mvvm_dagger2.di.AppComponent
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Weather
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.WeatherRepository
-import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
