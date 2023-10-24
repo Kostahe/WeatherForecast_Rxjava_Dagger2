@@ -23,8 +23,8 @@ class LocationTrackerImpl @Inject constructor(
 ) : LocationTracker {
 
 
-    override fun getCurrentLocation(): Observable<Location?> {
-        return Observable.create<Location?> { emitter ->
+    override fun getCurrentLocation(): Single<Location?> {
+        return Single.create { emitter ->
             val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
                 application,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -36,15 +36,15 @@ class LocationTrackerImpl @Inject constructor(
             val locationManager = application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
             if(!hasAccessCoarseLocationPermission || !hasAccessFineLocationPermission || !isGpsEnabled) {
-                emitter.onComplete()
+                emitter.onError(Exception("Didn't get location"))
             } else {
                 locationClient.lastLocation.addOnSuccessListener { location ->
-                    emitter.onNext(location)
-                    emitter.onComplete()
-                }.addOnFailureListener {
-                    emitter.onError(it)
+                    emitter.onSuccess(location)
+
+                }.addOnFailureListener { error ->
+                    emitter.onError(error)
                 }.addOnCanceledListener {
-                    emitter.onComplete()
+                    emitter.onError(Exception("Didn't get location"))
                 }
             }
         }

@@ -5,5 +5,5 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 interface LocationTracker {
-    fun getCurrentLocation(): Observable<Location?>
+    fun getCurrentLocation(): Single<Location?>
 }
