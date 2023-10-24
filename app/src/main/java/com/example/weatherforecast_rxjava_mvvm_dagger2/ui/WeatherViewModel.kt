@@ -2,6 +2,8 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.ui
 
 import android.location.Location
 import androidx.lifecycle.ViewModel
+import com.example.weatherforecast_rxjava_mvvm_dagger2.appComponent
+import com.example.weatherforecast_rxjava_mvvm_dagger2.di.AppComponent
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Weather
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
@@ -20,11 +22,12 @@ class WeatherViewModel: ViewModel() {
     @Inject
     lateinit var locationTracker: LocationTracker
 
+    private lateinit var appComponent: AppComponent
+
     private val disposables = CompositeDisposable()
 
     private var _state = MutableStateFlow(WeatherState())
     val state = _state.asStateFlow()
-
 
     override fun onCleared() {
         disposables.dispose()
@@ -32,6 +35,8 @@ class WeatherViewModel: ViewModel() {
     }
 
     init {
+        appComponent.inject(this)
+
         locationTracker.getCurrentLocation().subscribe(object : SingleObserver<Location?> {
             override fun onSubscribe(d: Disposable) {
                 disposables.add(d)

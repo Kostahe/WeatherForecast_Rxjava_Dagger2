@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherforecast_rxjava_mvvm_dagger2.databinding.ActivityMainBinding
+import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
 import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.WeatherViewModel
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        appComponent.inject(this)
+
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {}
@@ -31,7 +32,12 @@ class MainActivity : AppCompatActivity() {
 
 
         val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
-        val state = viewModel.state
-        binding.textView.text = state.value.weather.data.toString()
+        val weatherState = viewModel.state.value.weather
+
+        when(weatherState) {
+            is State.Loading -> {}
+            is State.Success -> {binding.textView.text = weatherState.data.toString()}
+            is State.Error -> {}
+        }
     }
 }
