@@ -14,11 +14,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-class WeatherViewModel: ViewModel() {
-    @Inject
-    lateinit var repository: WeatherRepository
-    @Inject
-    lateinit var locationTracker: LocationTracker
+class WeatherViewModel @Inject constructor(
+    private val repository: WeatherRepository,
+    private val locationTracker: LocationTracker
+): ViewModel() {
 
     private lateinit var appComponent: AppComponent
 
