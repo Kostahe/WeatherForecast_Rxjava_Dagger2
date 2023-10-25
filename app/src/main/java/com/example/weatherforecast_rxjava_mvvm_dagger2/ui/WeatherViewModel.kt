@@ -14,12 +14,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-class WeatherViewModel @Inject constructor(
-    private val repository: WeatherRepository,
+
+class WeatherViewModel constructor(
+    val repository: WeatherRepository,
     private val locationTracker: LocationTracker
 ): ViewModel() {
-
-    private lateinit var appComponent: AppComponent
 
     private val disposables = CompositeDisposable()
 
@@ -32,8 +31,6 @@ class WeatherViewModel @Inject constructor(
     }
 
     init {
-        appComponent.inject(this)
-
         locationTracker.getCurrentLocation().subscribe(object : SingleObserver<Location?> {
             override fun onSubscribe(d: Disposable) {
                 disposables.add(d)
@@ -60,7 +57,6 @@ class WeatherViewModel @Inject constructor(
                     })
                 }
             }
-
         })
     }
 }

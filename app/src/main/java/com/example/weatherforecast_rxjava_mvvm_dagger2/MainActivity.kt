@@ -7,7 +7,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherforecast_rxjava_mvvm_dagger2.databinding.ActivityMainBinding
+import com.example.weatherforecast_rxjava_mvvm_dagger2.di.AppComponent
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
+import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.ViewModelFactory
 import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.WeatherViewModel
 import javax.inject.Inject
 
@@ -16,9 +18,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
+    private lateinit var viewModel: WeatherViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appComponent.inject(this)
 
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
@@ -31,10 +38,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
-        val weatherState = viewModel.state.value.weather
+        viewModel = ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
 
-        when(weatherState) {
+        when(val weatherState = viewModel.state.value.weather) {
             is State.Loading -> {}
             is State.Success -> {binding.textView.text = weatherState.data.toString()}
             is State.Error -> {}
