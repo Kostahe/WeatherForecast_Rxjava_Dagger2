@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         when(val weatherState = viewModel.state.value.weather) {
             is State.Loading -> {}
-            is State.Success -> {binding.textView.text = weatherState.data.toString()}
+            is State.Success -> {
+            }
             is State.Error -> {}
         }
     }
