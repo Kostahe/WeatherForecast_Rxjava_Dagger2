@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 
-class WeatherViewModel constructor(
-    val repository: WeatherRepository,
+class WeatherViewModel @Inject constructor(
+    private val repository: WeatherRepository,
     private val locationTracker: LocationTracker
 ): ViewModel() {
 

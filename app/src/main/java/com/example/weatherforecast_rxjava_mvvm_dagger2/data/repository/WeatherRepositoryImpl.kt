@@ -18,6 +18,7 @@ class WeatherRepositoryImpl @Inject constructor(
         latitude: Double,
         longitude: Double
     ): Single<State<Weather>> {
+        // Using there flatmap because with map operator it's broken it will return State.Success not State
         return try {
             weatherApi.getWeatherData(latitude, longitude).flatMap {apiWeather ->
                 val weather = apiWeatherMapper.mapToDoMain(apiWeather)

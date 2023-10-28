@@ -18,10 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
-    private lateinit var viewModel: WeatherViewModel
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: WeatherViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +36,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         viewModel = ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
 
         when(val weatherState = viewModel.state.value.weather) {
-            is State.Loading -> {}
-            is State.Success -> {
+            is State.Loading -> {
+                TODO()
             }
-            is State.Error -> {}
+            is State.Success -> {
+                TODO()
+            }
+            is State.Error -> {
+                TODO()
+            }
         }
     }
 }
