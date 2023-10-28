@@ -5,18 +5,35 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.WeatherRepository
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Suppress("UNCHECKED_CAST")
 @Singleton
-class ViewModelFactory @Inject constructor(
-    private val repository: WeatherRepository,
-    private val locationTracker: LocationTracker
+class ViewModelFactory @Inject
+constructor(
+    private val creators: Map<Class<out ViewModel>,
+            @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(WeatherViewModel::class.java)) {
-            return WeatherViewModel(repository, locationTracker) as T
+        var creator: Provider<out ViewModel>? = creators[modelClass]
+        if (creator == null) {
+            for ((key, value) in creators) {
+                if (modelClass.isAssignableFrom(key)) {
+                    creator = value
+                    break
+                }
+            }
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        if (creator == null) {
+            throw IllegalArgumentException("unknown model class " + modelClass)
+        }
+        try {
+            return creator.get() as T
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+
     }
 }
