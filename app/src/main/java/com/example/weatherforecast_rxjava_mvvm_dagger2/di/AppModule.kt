@@ -44,13 +44,18 @@ object AppModule {
             .build()
     }
 
-
     @Provides
     @Singleton
     fun provideLoggingInterceptor(loggingInterceptor: LoggingInterceptor): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor(loggingInterceptor)
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return httpLoggingInterceptor
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptorImpl(): LoggingInterceptor {
+        return LoggingInterceptor()
     }
 
     @Provides

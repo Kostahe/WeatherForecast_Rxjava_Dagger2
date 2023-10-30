@@ -1,6 +1,7 @@
 package com.example.weatherforecast_rxjava_mvvm_dagger2.ui
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.weatherforecast_rxjava_mvvm_dagger2.di.AppComponent
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
@@ -30,14 +31,14 @@ class WeatherViewModel @Inject constructor(
         super.onCleared()
     }
 
-    init {
+    fun apiCall() {
         locationTracker.getCurrentLocation().subscribe(object : SingleObserver<Location?> {
             override fun onSubscribe(d: Disposable) {
                 disposables.add(d)
             }
 
             override fun onError(e: Throwable) {
-                _state.value.weather = State.Error(e.message.orEmpty())
+
             }
 
             override fun onSuccess(location: Location) {
@@ -48,7 +49,7 @@ class WeatherViewModel @Inject constructor(
                         }
 
                         override fun onError(e: Throwable) {
-                            _state.value.weather = State.Error(e.message.orEmpty())
+
                         }
 
                         override fun onSuccess(weatherState: State<Weather>) {

@@ -32,6 +32,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/current_weather_image"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginBottom="16dp"
@@ -39,6 +40,7 @@
                     tools:src="@drawable/ic_cloudy" />
 
                 <TextView
+                    android:id="@+id/current_weather_temperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -46,6 +48,7 @@
                     tools:text="20°C" />
 
                 <TextView
+                    android:id="@+id/current_weather_weathers_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -56,7 +59,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/daily_weather_card"
+            android:id="@+id/hourly_weather_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/current_weather_card"
@@ -64,6 +67,7 @@
             app:layout_constraintEnd_toEndOf="@id/current_weather_card">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hourly_weather_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"/>
@@ -71,13 +75,15 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/daily_weather_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/daily_weather_card"
+            app:layout_constraintTop_toBottomOf="@id/hourly_weather_card"
             app:layout_constraintStart_toStartOf="@id/current_weather_card"
             app:layout_constraintEnd_toEndOf="@id/current_weather_card">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/daily_weather_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
     </androidx.cardview.widget.CardView>

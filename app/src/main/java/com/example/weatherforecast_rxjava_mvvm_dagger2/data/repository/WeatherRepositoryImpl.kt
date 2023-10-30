@@ -1,5 +1,6 @@
 package com.example.weatherforecast_rxjava_mvvm_dagger2.data.repository
 
+import android.util.Log
 import com.example.weatherforecast_rxjava_mvvm_dagger2.data.api.WeatherApi
 import com.example.weatherforecast_rxjava_mvvm_dagger2.data.api.mappers.ApiWeatherMapper
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Weather
@@ -18,11 +19,11 @@ class WeatherRepositoryImpl @Inject constructor(
         latitude: Double,
         longitude: Double
     ): Single<State<Weather>> {
-        // Using there flatmap because with map operator it's broken it will return State.Success not State
+        // Using there flatmap because with the map operator it's broken it will return State.Success not State
         return try {
             weatherApi.getWeatherData(latitude, longitude).flatMap {apiWeather ->
                 val weather = apiWeatherMapper.mapToDoMain(apiWeather)
-
+                Log.d("API", "Success")
                 Single.just(State.Success(weather)).observeOn(Schedulers.io())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -30,6 +31,7 @@ class WeatherRepositoryImpl @Inject constructor(
         }
         catch (e: Exception){
             e.printStackTrace()
+            Log.e("API", "Error")
             Single.just<State<Weather>?>(State.Error(e.message.orEmpty()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

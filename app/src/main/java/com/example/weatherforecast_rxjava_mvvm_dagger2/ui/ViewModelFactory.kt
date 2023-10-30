@@ -2,8 +2,6 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
-import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.WeatherRepository
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -27,7 +25,7 @@ constructor(
             }
         }
         if (creator == null) {
-            throw IllegalArgumentException("unknown model class " + modelClass)
+            throw IllegalArgumentException("unknown model class $modelClass")
         }
         try {
             return creator.get() as T

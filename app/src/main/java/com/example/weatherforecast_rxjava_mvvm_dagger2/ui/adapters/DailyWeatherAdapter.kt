@@ -1,4 +1,4 @@
-package com.example.weatherforecast_rxjava_mvvm_dagger2.ui.adaptors
+package com.example.weatherforecast_rxjava_mvvm_dagger2.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
