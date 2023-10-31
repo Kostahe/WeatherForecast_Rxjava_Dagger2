@@ -49,7 +49,7 @@ class WeatherViewModel @Inject constructor(
                         }
 
                         override fun onError(e: Throwable) {
-
+                            _state.value.weather = State.Error(e.message.orEmpty())
                         }
 
                         override fun onSuccess(weatherState: State<Weather>) {

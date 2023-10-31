@@ -54,12 +54,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptorImpl(): LoggingInterceptor {
-        return LoggingInterceptor()
-    }
-
-    @Provides
-    @Singleton
     fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(app)
     }

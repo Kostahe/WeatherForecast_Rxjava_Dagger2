@@ -24,18 +24,15 @@ class WeatherRepositoryImpl @Inject constructor(
             weatherApi.getWeatherData(latitude, longitude).flatMap {apiWeather ->
                 val weather = apiWeatherMapper.mapToDoMain(apiWeather)
                 Log.d("API", "Success")
-                Single.just(State.Success(weather)).observeOn(Schedulers.io())
+                Single.just(State.Success(weather))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
             }
         }
         catch (e: Exception){
-            e.printStackTrace()
-            Log.e("API", "Error")
-            Single.just<State<Weather>?>(State.Error(e.message.orEmpty()))
+            return Single.just<State<Weather>>(State.Error(e.message.orEmpty()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         }
     }
-
 }
