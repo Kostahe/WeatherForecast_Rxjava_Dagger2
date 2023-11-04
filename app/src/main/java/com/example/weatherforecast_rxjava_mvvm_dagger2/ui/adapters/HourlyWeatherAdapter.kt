@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast_rxjava_mvvm_dagger2.R
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Hourly
 
-class HourlyWeatherAdapter(
-    private val data: List<Hourly.HourlyWeatherInfo>
-): RecyclerView.Adapter<HourlyWeatherAdapter.ItemViewHolder>() {
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class HourlyWeatherAdapter(): RecyclerView.Adapter<HourlyWeatherAdapter.ItemViewHolder>() {
+
+    private var list: List<Hourly.HourlyWeatherInfo> = mutableListOf()
+
+    inner class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val itemText: TextView = view.findViewById(R.id.item_text)
         val itemImage: ImageView = view.findViewById(R.id.item_image)
         val itemTemperatureText: TextView = view.findViewById(R.id.item_temperature_text)
@@ -24,17 +25,22 @@ class HourlyWeatherAdapter(
         return ItemViewHolder(adapterLayout)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.itemText.apply {
-            text = data[position].time
+            text = list[position].time
         }
         holder.itemImage.apply {
-            setImageResource(data[position].weatherStatus.iconRes)
+            setImageResource(list[position].weatherStatus.iconRes)
         }
         holder.itemTemperatureText.apply {
-            text = data[position].temperature.toString()
+            text = list[position].temperature.toString()
         }
+    }
+
+    fun updateList(list: List<Hourly.HourlyWeatherInfo>) {
+        this.list = list
+        notifyDataSetChanged()
     }
 }

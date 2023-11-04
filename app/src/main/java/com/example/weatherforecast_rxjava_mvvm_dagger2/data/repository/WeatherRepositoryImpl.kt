@@ -19,14 +19,12 @@ class WeatherRepositoryImpl @Inject constructor(
         longitude: Double,
         result: (Single<Weather>) -> Unit
     ) {
-        weatherApi.getWeatherData(latitude, longitude).map { apiWeather ->
-            apiWeatherMapper.mapToDoMain(apiWeather)
-        }.doOnSuccess { weatherData ->
-            result.invoke(
-                Single.just(weatherData)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-            )
-        }
+        result.invoke(
+            weatherApi.getWeatherData(latitude, longitude).map { apiWeather ->
+                apiWeatherMapper.mapToDoMain(apiWeather)
+            }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        )
     }
 }

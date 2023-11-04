@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast_rxjava_mvvm_dagger2.R
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Daily
 
-class DailyWeatherAdapter(
-    private val data: List<Daily.DailyWeatherInfo>
-) : RecyclerView.Adapter<DailyWeatherAdapter.ItemViewHolder>(){
+class DailyWeatherAdapter() : RecyclerView.Adapter<DailyWeatherAdapter.ItemViewHolder>(){
+
+    private var list: List<Daily.DailyWeatherInfo> = mutableListOf()
+
     class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         val itemText: TextView = view.findViewById(R.id.item_text)
         val itemImage: ImageView = view.findViewById(R.id.item_image)
@@ -24,19 +25,24 @@ class DailyWeatherAdapter(
         return ItemViewHolder(adapterLayout)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.itemText.apply {
-            text = data[position].time
+            text = list[position].time
         }
 
         holder.itemImage.apply {
-            setImageResource(data[position].weatherStatus.iconRes)
+            setImageResource(list[position].weatherStatus.iconRes)
         }
 
         holder.itemTemperatureText.apply {
-            text = "${data[position].temperatureMin} - ${data[position].temperatureMax}°C"
+            text = "${list[position].temperatureMin} - ${list[position].temperatureMax}°C"
         }
+    }
+
+    fun updateList(list: List<Daily.DailyWeatherInfo>) {
+        this.list = list
+        notifyDataSetChanged()
     }
 }

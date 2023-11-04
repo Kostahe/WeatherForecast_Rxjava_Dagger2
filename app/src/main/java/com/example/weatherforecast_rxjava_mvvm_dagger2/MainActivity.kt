@@ -26,6 +26,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: WeatherViewModel
 
+    private val dailyWeatherAdapter by lazy {
+        DailyWeatherAdapter()
+    }
+    private val hourlyWeatherAdapter by lazy {
+        HourlyWeatherAdapter()
+    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +48,10 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_COARSE_LOCATION,
         ))
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        binding.hourlyWeatherRecyclerview.adapter = hourlyWeatherAdapter
+        binding.dailyWeatherRecyclerview.adapter = dailyWeatherAdapter
+        setContentView(binding.root)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
         viewModel.apiCall()
@@ -60,8 +69,8 @@ class MainActivity : AppCompatActivity() {
                             binding.currentWeatherWeathersStatus.text = getText(weatherStatus.weatherDesc)
                             binding.currentWeatherTemperature.text = temperature.toString()
                         }
-                        binding.dailyWeatherRecyclerview.adapter = DailyWeatherAdapter(weather.daily.weatherInfo)
-                        binding.hourlyWeatherRecyclerview.adapter = HourlyWeatherAdapter(weather.hourly.weatherInfo)
+                        hourlyWeatherAdapter.updateList(weather.hourly.weatherInfo)
+                        dailyWeatherAdapter.updateList(weather.daily.weatherInfo)
                     }
                 }
                 is State.Error -> {
