@@ -64,16 +64,3 @@ class WeatherViewModel @Inject constructor(
     }
 }
 
-//.subscribe(object : SingleObserver<State<Weather>> {
-//    override fun onSubscribe(d: Disposable) {
-//        disposables.add(d)
-//    }
-//
-//    override fun onError(e: Throwable) {
-//        _state.value.weather = State.Error(e.message.orEmpty())
-//    }
-//
-//    override fun onSuccess(weatherState: State<Weather>) {
-//        _state.value.weather = weatherState
-//    }
-//})
