@@ -3,10 +3,10 @@ package com.example.weatherforecast_rxjava_mvvm_dagger2
 import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast_rxjava_mvvm_dagger2.databinding.ActivityMainBinding
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.repository.State
 import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.ViewModelFactory
@@ -14,6 +14,8 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.WeatherViewModel
 import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.adapters.DailyWeatherAdapter
 import com.example.weatherforecast_rxjava_mvvm_dagger2.ui.adapters.HourlyWeatherAdapter
 import javax.inject.Inject
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: WeatherViewModel
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +50,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.state.observe(this) { weatherState ->
             when(weatherState) {
                 is State.Loading -> {
-
+                    Log.d(TAG, "LOADING")
                 }
                 is State.Success -> {
+                    Log.d(TAG, "SUCCESS")
                     weatherState.data?.let { weather ->
                         weather.currentWeather.apply {
                             binding.currentWeatherImage.setImageResource(weatherStatus.iconRes)
@@ -60,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 is State.Error -> {
-
+                    Log.d(TAG, "ERROR")
                 }
             }
         }
