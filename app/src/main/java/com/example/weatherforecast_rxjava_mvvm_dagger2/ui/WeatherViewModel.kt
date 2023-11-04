@@ -31,6 +31,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun apiCall() {
+        _state.value = State.Loading()
         locationTracker.getCurrentLocation().subscribe(object : SingleObserver<Location?> {
             override fun onSubscribe(d: Disposable) {
                 disposables.add(d)

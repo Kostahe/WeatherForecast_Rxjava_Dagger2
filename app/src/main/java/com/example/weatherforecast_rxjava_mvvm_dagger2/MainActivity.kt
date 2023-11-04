@@ -43,24 +43,25 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[WeatherViewModel::class.java]
         viewModel.apiCall()
 
-        when(val weatherState = viewModel.state.value.weather) {
-            is State.Loading -> {
+        viewModel.state.observe(this) { weatherState ->
+            when(weatherState) {
+                is State.Loading -> {
 
-            }
-            is State.Success -> {
-                weatherState.data?.let {weather ->
-                    weather.currentWeather.apply {
-                        binding.currentWeatherImage.setImageResource(weatherStatus.iconRes)
-                        binding.currentWeatherWeathersStatus.text = getText(weatherStatus.weatherDesc)
-                        binding.currentWeatherTemperature.text = temperature.toString()
-                    }
-                    binding.dailyWeatherRecyclerview.adapter = DailyWeatherAdapter(weather.daily.weatherInfo)
-                    binding.hourlyWeatherRecyclerview.adapter = HourlyWeatherAdapter(weather.hourly.weatherInfo)
                 }
+                is State.Success -> {
+                    weatherState.data?.let { weather ->
+                        weather.currentWeather.apply {
+                            binding.currentWeatherImage.setImageResource(weatherStatus.iconRes)
+                            binding.currentWeatherWeathersStatus.text = getText(weatherStatus.weatherDesc)
+                            binding.currentWeatherTemperature.text = temperature.toString()
+                        }
+                        binding.dailyWeatherRecyclerview.adapter = DailyWeatherAdapter(weather.daily.weatherInfo)
+                        binding.hourlyWeatherRecyclerview.adapter = HourlyWeatherAdapter(weather.hourly.weatherInfo)
+                    }
+                }
+                is State.Error -> {
 
-            }
-            is State.Error -> {
-
+                }
             }
         }
     }
