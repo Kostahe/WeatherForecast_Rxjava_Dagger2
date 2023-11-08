@@ -9,11 +9,8 @@ import android.location.LocationManager
 import androidx.core.content.ContextCompat
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.location.LocationTracker
 import com.google.android.gms.location.FusedLocationProviderClient
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 

@@ -4,7 +4,6 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.data.models.ApiCurrentWea
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.CurrentWeather
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.WeatherStatus
 import com.example.weatherforecast_rxjava_mvvm_dagger2.utils.FormatUtils
-import io.reactivex.Single
 import javax.inject.Inject
 
 class ApiCurrentWeatherMapper @Inject constructor(): ApiMapper<CurrentWeather, ApiCurrentWeather>{

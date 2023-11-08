@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast_rxjava_mvvm_dagger2.R
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Hourly
 
-class HourlyWeatherAdapter(): RecyclerView.Adapter<HourlyWeatherAdapter.ItemViewHolder>() {
+class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.ItemViewHolder>() {
 
     private var list: List<Hourly.HourlyWeatherInfo> = mutableListOf()
 
-    inner class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemText: TextView = view.findViewById(R.id.item_text)
         val itemImage: ImageView = view.findViewById(R.id.item_image)
         val itemTemperatureText: TextView = view.findViewById(R.id.item_temperature_text)

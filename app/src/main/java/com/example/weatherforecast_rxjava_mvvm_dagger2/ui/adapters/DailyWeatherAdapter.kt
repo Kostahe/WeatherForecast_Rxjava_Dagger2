@@ -1,5 +1,6 @@
 package com.example.weatherforecast_rxjava_mvvm_dagger2.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast_rxjava_mvvm_dagger2.R
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Daily
 
-class DailyWeatherAdapter() : RecyclerView.Adapter<DailyWeatherAdapter.ItemViewHolder>(){
+class DailyWeatherAdapter : RecyclerView.Adapter<DailyWeatherAdapter.ItemViewHolder>(){
 
     private var list: List<Daily.DailyWeatherInfo> = mutableListOf()
 
-    class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val itemText: TextView = view.findViewById(R.id.item_text)
         val itemImage: ImageView = view.findViewById(R.id.item_image)
         val itemTemperatureText: TextView = view.findViewById(R.id.item_temperature_text)
@@ -27,6 +28,7 @@ class DailyWeatherAdapter() : RecyclerView.Adapter<DailyWeatherAdapter.ItemViewH
 
     override fun getItemCount(): Int = list.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.itemText.apply {
             text = list[position].time

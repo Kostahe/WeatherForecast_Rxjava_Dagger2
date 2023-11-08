@@ -4,7 +4,6 @@ import com.example.weatherforecast_rxjava_mvvm_dagger2.data.models.ApiHourly
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.Hourly
 import com.example.weatherforecast_rxjava_mvvm_dagger2.domain.models.WeatherStatus
 import com.example.weatherforecast_rxjava_mvvm_dagger2.utils.FormatUtils
-import io.reactivex.Single
 import javax.inject.Inject
 
 class ApiHourlyMapper @Inject constructor(): ApiMapper<Hourly, ApiHourly> {

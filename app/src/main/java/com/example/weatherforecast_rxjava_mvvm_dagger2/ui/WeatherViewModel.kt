@@ -41,6 +41,7 @@ class WeatherViewModel @Inject constructor(
                 _state.value = State.Error("Location Error")
             }
 
+            @Suppress("NAME_SHADOWING")
             override fun onSuccess(location: Location) {
                 location.let { location ->
                     repository.getWeatherData(location.latitude, location.longitude) { state ->
