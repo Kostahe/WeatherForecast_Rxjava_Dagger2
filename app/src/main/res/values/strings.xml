@@ -31,4 +31,5 @@
 
     <string name="pressure_unit">hpa</string>
     <string name="wind_speed_unit">km/h</string>
+    <string name="temperature_unit">°C</string>
 </resources>

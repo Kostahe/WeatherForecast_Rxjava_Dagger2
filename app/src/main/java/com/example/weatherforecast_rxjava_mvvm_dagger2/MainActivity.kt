@@ -4,6 +4,7 @@ import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
@@ -60,21 +61,25 @@ class MainActivity : AppCompatActivity() {
             when(weatherState) {
                 is State.Loading -> {
                     Log.d(TAG, "LOADING")
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 is State.Success -> {
                     Log.d(TAG, "SUCCESS")
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.currentWeatherCard.visibility = View.VISIBLE
                     weatherState.data?.let { weather ->
                         weather.currentWeather.apply {
                             binding.currentWeatherImage.setImageResource(weatherStatus.iconRes)
                             binding.currentWeatherWeathersStatus.text = getText(weatherStatus.weatherDesc)
-                            binding.currentWeatherTemperature.text = temperature.toString()
+                            binding.currentWeatherTemperature.text = "${temperature}${getText(R.string.temperature_unit)}"
                         }
-                        hourlyWeatherAdapter.updateList(weather.hourly.weatherInfo)
+                        hourlyWeatherAdapter.updateList(weather.hourly.weatherInfo.subList(0, 23))
                         dailyWeatherAdapter.updateList(weather.daily.weatherInfo)
                     }
                 }
                 is State.Error -> {
                     Log.d(TAG, "ERROR")
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }
