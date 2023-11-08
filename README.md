@@ -1,5 +1,5 @@
 ![Weather_forecast_app (1)](https://github.com/Kostahe/Weather_Forecast/assets/113007546/c420c213-693a-4241-ae58-a09b717abbcb)
-<p> It's the same project as this <a href="https://github.com/Kostahe/Weather_Forecast">Weather_Forecast App</a>, but I used Rxjava instead of coroutines, xml views instead of jetpack compose, dagger2 instead of hilt and others.</p>
+<p>It's the same project as this <a href="https://github.com/Kostahe/Weather_Forecast">Weather_Forecast App</a>, but I used Rxjava instead of coroutines, xml views instead of jetpack compose, dagger2 instead of hilt and others. Description of the app: Simple weather forecast app which gets your location and sends api request to open-meteo, which is free open-source api to get accurate weather forecast for any location.</p>
 
 ## What I used for this app
 * <p><a href="https://developer.android.com/develop/ui/views/layout/declaring-layout">Views</a> for ui </p>
