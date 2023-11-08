@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "SUCCESS")
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.currentWeatherCard.visibility = View.VISIBLE
+                    binding.dailyWeatherCard.visibility = View.VISIBLE
+                    binding.hourlyWeatherCard.visibility = View.VISIBLE
                     weatherState.data?.let { weather ->
                         weather.currentWeather.apply {
                             binding.currentWeatherImage.setImageResource(weatherStatus.iconRes)

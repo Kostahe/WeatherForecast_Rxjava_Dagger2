@@ -22,7 +22,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/item_text"
-        tools:src="@drawable/ic_sunny" />
+        tools:src="@drawable/ic_sunny"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/item_temperature_text"
